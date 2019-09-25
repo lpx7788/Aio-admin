@@ -1,4 +1,4 @@
-import './index.css'
+import './index.less'
 import React from 'react'
 import { Breadcrumb, Icon, Dropdown, Menu, Avatar } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
@@ -46,11 +46,14 @@ class NavPath extends React.Component {
     )
     return (
       <div className='navpth-container'>
+     
+    
         <Icon
-          className='trigger'
-          type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-          onClick={this.toggle}
-        />
+              className="trigger"
+              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={this.toggle}
+            />
+            
         <Breadcrumb style={{ margin: '24px 16px 0',display: 'inline-block'}}>
           {extreaBreadcrumbItems}
         </Breadcrumb>

@@ -1,29 +1,61 @@
 import React from 'react'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import Login from '../views/login/index'
-import Layout from '../views/layout/index'
-import Home from '../views/home/index'
-import Table from '../components/table/index'
-import NoMatch from '../components/nomatch/index'
+import asyncComponent from './asyncComponent'
+// import Login from '../views/Login/index'
+// import Layout from '../views/Layout/index'
+// import Home from '../views/Home/index'
+// import Table from '../components/Table/index'
+// import NoMatch from '../components/Nomatch/index'
+// import Application from '../views/Business/Application/index'
+
+let Login = asyncComponent(() => import('../views/Login/index'))
+let Layout = asyncComponent(() => import('../views/Layout/index'))
+let Home = asyncComponent(() => import('../views/Home/index'))
+let Order = asyncComponent(() => import('../views/Order/index'))
+let Table = asyncComponent(() => import('../components/Table/index'))
+let NoMatch = asyncComponent(() => import('../components/Nomatch/index'))
+let Application = asyncComponent(() => import('../views/Business/Application/index'))
 
 
 export const childRoutes = [
   {
     key: '0',
-    name: 'Home',
+    name: '平台主页',
     icon: 'file',
     url: '/home',
     component: Home,
     exactly: true
   },
   {
-    key: 'sub1',
-    name: 'Components',
+    key: '1',
+    name: '企业管理',
     icon: 'user',
     child: [
       {
-        key: '2',
-        name: 'Table',
+        key: '1.1',
+        name: '入驻申请',
+        url: '/Business/Application',
+        component: Application
+      }
+    ]
+  },  
+  {
+    key: '2',
+    name: '订单管理',
+    icon: 'file',
+    url: '/order',
+    component: Order,
+    exactly: true
+  },
+
+  {
+    key: '3',
+    name: '资讯管理',
+    icon: 'user',
+    child: [
+      {
+        key: '3.1',
+        name: '全部资讯',
         url: '/components/table',
         component: Table
       }
@@ -35,9 +67,10 @@ export const childRoutes = [
 
 // 面包屑导航栏url对应的name
 export const breadcrumbNameMap = {
-    '/components': 'Components',
     '/components/table': 'Table',
+    '/Business/Application':'Business/Application',
     '/home': 'Home',
+    '/order': 'Order',
   };
 
 

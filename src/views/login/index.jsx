@@ -1,4 +1,4 @@
-import './index.css'
+import './index.less'
 import React from 'react'
 import { Form, Icon, Input, Button } from 'antd'
 const FormItem = Form.Item

@@ -1,9 +1,11 @@
+import './index.less'
 import React, { Component } from 'react'
 import { Link, withRouter, matchPath } from 'react-router-dom'
 import { childRoutes } from '../../router/index'
 import { Layout, Menu, Icon } from 'antd'
 const { Sider } = Layout
 const SubMenu = Menu.SubMenu
+
 
 const isActive = (path, history) => {
     return matchPath(path, {
@@ -64,7 +66,7 @@ class SiderBar extends Component {
                 title={
                   <span>
                     <Icon type={item.icon} />
-                    <span className="nav-text">{item.name}</span>
+                    <span  className="nav-text" >{item.name}</span>
                   </span>
                 }
               >
@@ -75,14 +77,14 @@ class SiderBar extends Component {
             return (
               <Menu.Item key={item.key}>
                 {item.url ? (
-                  <Link to={item.url}>
-                    <span className="nav-text">
+                  <Link to={item.url} className="nav-link">
+                    <span  className="nav-text">
                       {item.icon && <Icon type={item.icon} />}
                       {item.name}
                     </span>
                   </Link>
                 ) : (
-                  <span className="nav-text">
+                  <span  className="nav-text">
                     {item.icon && <Icon type={item.icon} />}
                     {item.name}
                   </span>
@@ -96,6 +98,10 @@ class SiderBar extends Component {
     const menu = _menuProcess(childRoutes)
     return (
       <Sider trigger={null} collapsible collapsed={this.state.collapsed} id='sideId'>
+        <div className="nav-logo">
+          <img src="https://aio.manytrader.net/preViewUploadFile/images/logo-32.png" alt=""/>
+          <span style={{display: this.state.collapsed===false? "inline-block" : "none"}}>AIO商城</span>
+        </div>
         <Menu
           theme="dark"
           mode={this.state.mode}

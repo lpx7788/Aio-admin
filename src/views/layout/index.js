@@ -1,10 +1,10 @@
-import './index.css'
+import './index.less'
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import { Layout } from 'antd'
 import { childRoutes } from '../../router/index'
-import SiderBar from '../../components/sidebar/index'
-import NavPath from '../../components/navpath/index'
+import SiderBar from '../../components/SideBar/index'
+import NavPath from '../../components/Navpath/index'
 
 const { Header, Content } = Layout
 
