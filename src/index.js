@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import '../src/assets/less/index.less'
 import Routers from './router/index'
 import 'antd/dist/antd.css';
 
@@ -18,5 +18,7 @@ ReactDOM.render(
 //     )
 //   })
 // }
+
+
 
 registerServiceWorker()

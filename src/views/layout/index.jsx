@@ -30,7 +30,7 @@ class App extends Component {
             <NavPath initialChecked={this.state.collapsed} callbackParent={this.onCheckedChange} />
           </Header>
     
-          <Content style={{ padding: '24px 32px' }}>
+          <Content style={{ padding: '15px' }}>
             <div style={{ minHeight: 460 }}>
               {childRoutes.map(childRoute => {
                 if (childRoute.hasOwnProperty('child')) {
