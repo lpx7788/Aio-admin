@@ -1,59 +1,68 @@
-##基于react+antd+react-router+redux+mock后台管理系统
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-##运行环境说明
-> react V16.2.0
+## Available Scripts
 
-> react-router-dom V4.2.2
+In the project directory, you can run:
 
-> antd V3.23.4
+### `npm start`
 
-> node V6.11.0
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-## 项目说明
+### `npm test`
 
-    本项目是基于React的脚手架crate-react-app,增加了less,antd,
-    react-router使用的最新的4.2。像子组件接受不到路由，可以使用withRouter
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## 技术文档
-- [React](https://facebook.github.io/react/)
-- [React-router](https://reacttraining.com/react-router/web/example/basic)
-- [React-router中文文档](http://reacttraining.cn/web/example/basic)
-- [Ant Design of React](http://design.alipay.com/develop/web/docs/introduce)
-- [Babel](https://babeljs.io/)
-- [webpack](https://webpack.github.io/)
+### `npm run build`
 
-## 使用项目
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- 1.克隆项目  git clone
-- 2.切换到项目根目录 cd  react-antd-admin-simplateTemplate
-- 3.安装依赖包 npm install
-- 4.启动服务 npm start
-- 5.打包构建 npm build 
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## 目录结构
-```shell
-├── build                           // 构建相关  
-├── public                          // 公用模板
-├── src                             // 源代码
-│   ├── api                         // 所有请求
-│   ├── assets                      // 存放图片等静态资源
-│   ├── components                  // 全局公用组件
-│   ├── mock                        // 项目mock 模拟数据
-│   ├── router                      // 路由
-│   │   ├── asyncComponent          //路由按需加载
-│   │   ├── index                   //路由管理
-│   ├── utils                       // 全局公用方法
-│   ├── views                       // views
-│   ├── index.css                   // 全局css样式
-│   ├── index.js                    // 入口js 初始化 加载组件等
-│   ├── logo.svg                    // log图标
-│   └── registerServiceWorker.js    // 本地创建service worker 
-├── .gitignore                      // git 忽略项
-├── package-lock.json               // package.json
-└── package.json                    // package.json
+### `npm run eject`
 
-```
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

@@ -1,14 +1,25 @@
 import React from 'react'
 import './index.less'
 import { Card } from 'antd';
-let dataList;
+
 
 export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataList:[]
+    };
+
+  }
+
   componentWillMount(){
+    let self = this;
     global.httpClient
       .request(global.projectConfig.WECHAT_LOGIN, {}, "post")
       .then(res => {
-        dataList = res.returnObject;
+        self.setState({
+          dataList:res.returnObject
+        });
       }).catch(function(err) {
         console.log(err);
       });
@@ -25,7 +36,7 @@ export default class Home extends React.Component {
           <p>基本数据</p>
           <section className="card-list">
             {
-              dataList.map((obj)=>{
+              this.state.dataList.map((obj)=>{
                 return  (
                   <div className='card-list'  key={obj.type}>
                     <Card   title="Card title" bordered={false} style={{ width: 300 }}>
