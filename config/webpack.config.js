@@ -107,21 +107,11 @@ module.exports = function(webpackEnv) {
               },
               stage: 3,
             }),
-            // Adds PostCSS Normalize as the reset css with default options,
-            // so that it honors browserslist config in package.json
-            // which in turn let's users customize the target behavior as per their needs.
             postcssNormalize(),
           ],
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
-      // {
-      //   loader: require.resolve('less-loader'),
-      //   options: {
-      //     javascriptEnabled: true,
-      //   }
-        
-      // }
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push(
@@ -137,7 +127,7 @@ module.exports = function(webpackEnv) {
             sourceMap: true,
             modifyVars: {
               // "@primary-color": "#c00",
-              "@font-size-base": "14px",
+              "@font-size-base": "12px",
             }
           },
         }
@@ -629,14 +619,7 @@ module.exports = function(webpackEnv) {
           };
         },
       }),
-      // Moment.js is an extremely popular library that bundles large locale files
-      // by default due to how Webpack interprets its code. This is a practical
-      // solution that requires the user to opt into importing specific locales.
-      // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
-      // You can remove this if you don't use Moment.js:
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      // Generate a service worker script that will precache, and keep up to date,
-      // the HTML & assets that are part of the Webpack build.
       isEnvProduction &&
         new WorkboxWebpackPlugin.GenerateSW({
           clientsClaim: true,
@@ -644,16 +627,10 @@ module.exports = function(webpackEnv) {
           importWorkboxFrom: 'cdn',
           navigateFallback: publicUrl + '/index.html',
           navigateFallbackBlacklist: [
-            // Exclude URLs starting with /_, as they're likely an API call
             new RegExp('^/_'),
-            // Exclude any URLs whose last part seems to be a file extension
-            // as they're likely a resource and not a SPA route.
-            // URLs containing a "?" character won't be blacklisted as they're likely
-            // a route with query params (e.g. auth callbacks).
             new RegExp('/[^/?]+\\.[^/]+$'),
           ],
         }),
-      // TypeScript type checking
       useTypeScript &&
         new ForkTsCheckerWebpackPlugin({
           typescript: resolve.sync('typescript', {
@@ -677,12 +654,9 @@ module.exports = function(webpackEnv) {
             '!**/src/setupTests.*',
           ],
           silent: true,
-          // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
     ].filter(Boolean),
-    // Some libraries import Node modules but don't use them in the browser.
-    // Tell Webpack to provide empty mocks for them so importing them works.
     node: {
       module: 'empty',
       dgram: 'empty',
@@ -693,8 +667,6 @@ module.exports = function(webpackEnv) {
       tls: 'empty',
       child_process: 'empty',
     },
-    // Turn off performance processing because we utilize
-    // our own hints via the FileSizeReporter
     performance: false,
   };
 };

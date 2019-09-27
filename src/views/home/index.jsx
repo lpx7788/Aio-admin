@@ -45,41 +45,25 @@ export default class Home extends React.Component {
             <Radio.Button value="6">累计</Radio.Button>
           </Radio.Group>
         </header>
-        <div className="page-border">
-          <div className="cpntent-item">
-            <p>基本数据</p>
+        <div className="page-content">
+          <div className="content-item border">
+            <p className="content-title">基本数据</p>
             <section className="card-list">
               {
-                this.state.dataList.map((obj) => {
+                this.state.dataList.map((item) => {
                   return (
-                    <div className='card-list' key={obj.type}>
-                      <Card title="Card title" bordered={false} style={{ width: 300 }}>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                        <p>Card content</p>
+                    <div className='card-list border' key={item.type}>
+                      <Card title={item.common} bordered={false} style={{ width: 240 }}>
+                        <p className="number bloc500">{item.count}</p>
+                        <p className="red persen bloc500">{item.percentage}</p>
                       </Card>
                     </div>
                   )
                 })
               }
-
-
             </section>
           </div>
-          <div className="cpntent-item">
-            <p>交易数据-现货商城</p>
-            <section className="card-list">
-
-            </section>
           </div>
-          <div className="cpntent-item">
-            <p>交易数据-求购大厅</p>
-            <section className="card-list">
-
-            </section>
-          </div>
-
-        </div>
       </div>
     )
   }
