@@ -115,13 +115,7 @@ module.exports = function(webpackEnv) {
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
-      // {
-      //   loader: require.resolve('less-loader'),
-      //   options: {
-      //     javascriptEnabled: true,
-      //   }
-        
-      // }
+ 
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push(
@@ -135,11 +129,15 @@ module.exports = function(webpackEnv) {
           loader: require.resolve(preProcessor),
           options: {
             sourceMap: true,
+            modifyVars: {
+              "@primary-color": "#c00"
+            }
           },
         }
       );
     }
     return loaders;
+    
   };
 
   return {
@@ -387,6 +385,7 @@ module.exports = function(webpackEnv) {
                       },
                     },
                   ],
+                  ["import", { "libraryName": "antd", "style": true }]
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import '../src/assets/less/index.less'
 import Routers from './router/index'
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 
 import httpClient from './utils/httpClient'
 import projectConfig from './utils/projectConfig'
