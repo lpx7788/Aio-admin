@@ -8,7 +8,7 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       dataList: [],
-      size: "1",
+      size: "today",
     };
   }
 
@@ -30,6 +30,7 @@ export default class Home extends React.Component {
   }
   handleSizeChange = e => {
     this.setState({ size: e.target.value });
+    console.log(this.state.size)
   };
 
   render() {
@@ -37,12 +38,12 @@ export default class Home extends React.Component {
       <div className="home-page-content">
         <header className="page-header">
           <Radio.Group value={this.state.size} onChange={this.handleSizeChange}>
-            <Radio.Button value="1">今天</Radio.Button>
-            <Radio.Button value="2">昨天</Radio.Button>
-            <Radio.Button value="3">最近一周</Radio.Button>
-            <Radio.Button value="4">最近30天</Radio.Button>
-            <Radio.Button value="5">最近90天</Radio.Button>
-            <Radio.Button value="6">累计</Radio.Button>
+            <Radio.Button value="today">今天</Radio.Button>
+            <Radio.Button value="yesterday">昨天</Radio.Button>
+            <Radio.Button value="lastWeek">最近一周</Radio.Button>
+            <Radio.Button value="lastMonth">最近30天</Radio.Button>
+            <Radio.Button value="lastThreeMonth">最近90天</Radio.Button>
+            <Radio.Button value="all">累计</Radio.Button>
           </Radio.Group>
         </header>
         <div className="page-content">
