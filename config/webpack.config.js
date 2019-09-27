@@ -115,7 +115,13 @@ module.exports = function(webpackEnv) {
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
- 
+      // {
+      //   loader: require.resolve('less-loader'),
+      //   options: {
+      //     javascriptEnabled: true,
+      //   }
+        
+      // }
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push(
@@ -130,7 +136,8 @@ module.exports = function(webpackEnv) {
           options: {
             sourceMap: true,
             modifyVars: {
-              "@primary-color": "#c00"
+              // "@primary-color": "#c00",
+              "@font-size-base": "14px",
             }
           },
         }
