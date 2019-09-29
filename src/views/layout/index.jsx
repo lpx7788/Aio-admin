@@ -22,15 +22,15 @@ class App extends Component {
   }
   render() {
     return (
-      <Layout className="ant-layout-has-sider">
+      <Layout className="layout-page ant-layout-has-sider">
         <SiderBar checked={this.state.collapsed} />
         <Content>
      
-          <Header style={{ background: '#fff', padding: 0 }}>
+          <Header className="layout-header" >
             <NavPath initialChecked={this.state.collapsed} callbackParent={this.onCheckedChange} />
           </Header>
     
-          <Content style={{ padding: '15px' }}>
+          <Content className="layout-content">
             <div style={{ minHeight: 460 }}>
               {childRoutes.map(childRoute => {
                 if (childRoute.hasOwnProperty('child')) {

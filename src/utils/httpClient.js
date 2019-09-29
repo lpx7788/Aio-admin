@@ -11,6 +11,7 @@ export default class httpClient {
    * @return 请求结果
    */
   static request (postUrl, param,method) {
+    param.token = 'e9b68b96ef3648adb99c1a8a9a3b12c3_f3914e67123e47b8acb46e557e9243dc'
     let headers = {}
     headers['X-Requested-With'] = 'XMLHttpRequest'
     if (param.token !== undefined) {

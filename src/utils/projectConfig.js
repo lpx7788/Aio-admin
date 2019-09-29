@@ -13,5 +13,6 @@ export default class projectConfig {
   static API_HOST_NAME = process.env.HOST_NAME;
   
   // 项目接口 =========================.start
-  static WECHAT_LOGIN = 'v1.0/app/count';//微信登录
+  static GET_HOMECOUNT = 'v1.0/app/count';//首页获取数据
+  static GET_COMPANYlIST = 'v1.0/company/query';//入驻申请
 }

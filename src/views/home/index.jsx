@@ -27,7 +27,7 @@ export default class Home extends React.Component {
   getPageDatas(){
     let self = this;
     global.httpClient
-    .request(global.projectConfig.WECHAT_LOGIN,this.state.parameter, "post")
+    .request(global.projectConfig.GET_HOMECOUNT,this.state.parameter, "post")
     .then(res => {
       self.setState({
         dataList: res.returnObject

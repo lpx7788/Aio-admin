@@ -54,7 +54,7 @@ class NavPath extends React.Component {
               onClick={this.toggle}
             />
             
-        <Breadcrumb style={{ margin: '24px 16px 0',display: 'inline-block'}}>
+        <Breadcrumb className="breadcrumb" >
           {extreaBreadcrumbItems}
         </Breadcrumb>
         <div className="drop-down">
