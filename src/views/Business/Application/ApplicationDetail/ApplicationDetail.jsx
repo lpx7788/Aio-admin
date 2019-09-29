@@ -1,9 +1,9 @@
 import React from 'react'
-import './index.less'
+import './ApplicationDetail.less'
 import { Radio,Input,Table,Button,Pagination} from 'antd';
 const { Search } = Input;
 
-export default class Application extends React.Component {
+export default class ApplicationDetail extends React.Component {
   
   constructor(props) {
     super(props);
@@ -84,6 +84,7 @@ export default class Application extends React.Component {
   render() {
     return (
       <div className="application-page-content">
+        <div>我是详情===</div>
         <header className="page-header">
           <Radio.Group value={this.state.parameter.companyStatus} onChange={this.handleStatusChange}>
             <Radio.Button value="">全部</Radio.Button>

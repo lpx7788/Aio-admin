@@ -20,6 +20,7 @@ export default class Home extends React.Component {
   }
 
   componentWillMount() {
+    console.log(this.props.location.query);
     this.getPageDatas();
   }
 

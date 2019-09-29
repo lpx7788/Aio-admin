@@ -15,6 +15,7 @@ let Order = asyncComponent(() => import('../views/Order/index'))
 let Table = asyncComponent(() => import('../components/Table/index'))
 let NoMatch = asyncComponent(() => import('../components/Nomatch/index'))
 let Application = asyncComponent(() => import('../views/Business/Application/index'))
+let ApplicationDetail = asyncComponent(() => import('../views/Business/Application/ApplicationDetail/ApplicationDetail'))
 
 
 export const childRoutes = [
@@ -35,7 +36,17 @@ export const childRoutes = [
         key: '1.1',
         name: '入驻申请',
         url: '/Business/Application',
-        component: Application
+        component: Application,
+        // exactly: true,
+        // child: [
+        //   {
+        //     key: '1.1.1',
+        //     name: '详情',
+        //     url: '/Business/Application/ApplicationDetail',
+        //     component: ApplicationDetail
+        //   }
+        // ]
+    
       }
     ]
   },  
