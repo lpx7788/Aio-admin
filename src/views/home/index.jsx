@@ -1,43 +1,54 @@
 import React from 'react'
 import './index.less'
-import { Card,Radio } from 'antd';
+import { Card,Radio,DatePicker } from 'antd';
+import locale from 'antd/es/date-picker/locale/zh_CN';
+const {  RangePicker } = DatePicker;
 
 
 export default class Home extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
       dataList: [],
-      size: "today",
+      parameter:{
+        dateKey: "today",
+      },
+     
+     
     };
   }
 
   componentWillMount() {
+    this.getPageDatas();
+  }
+
+  //获取页面数据
+  getPageDatas(){
     let self = this;
     global.httpClient
-      .request(global.projectConfig.WECHAT_LOGIN, {}, "post")
-      .then(res => {
-        self.setState({
-          dataList: res.returnObject
-        });
-      }).catch(function (err) {
-        console.log(err);
+    .request(global.projectConfig.WECHAT_LOGIN,this.state.parameter, "post")
+    .then(res => {
+      self.setState({
+        dataList: res.returnObject
       });
+    }).catch(function (err) {});
   }
-
-  componentDidMount() {
-
-  }
-  handleSizeChange = e => {
-    this.setState({ size: e.target.value });
-    console.log(this.state.size)
+  //修改日期
+  handleTImeChange = e => {
+    let parameter = this.state.parameter
+    parameter.dateKey = e.target.value;
+  　this.setState({
+      parameter: parameter
+  　})
+    this.getPageDatas();
   };
 
   render() {
     return (
       <div className="home-page-content">
         <header className="page-header">
-          <Radio.Group value={this.state.size} onChange={this.handleSizeChange}>
+          <Radio.Group value={this.state.parameter.dateKey} onChange={this.handleTImeChange}>
             <Radio.Button value="today">今天</Radio.Button>
             <Radio.Button value="yesterday">昨天</Radio.Button>
             <Radio.Button value="lastWeek">最近一周</Radio.Button>
@@ -45,6 +56,7 @@ export default class Home extends React.Component {
             <Radio.Button value="lastThreeMonth">最近90天</Radio.Button>
             <Radio.Button value="all">累计</Radio.Button>
           </Radio.Group>
+          <RangePicker className="dataPicker" locale={locale}  />
         </header>
         <div className="page-content">
           <div className="content-item border">
