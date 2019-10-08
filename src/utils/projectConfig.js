@@ -15,4 +15,5 @@ export default class projectConfig {
   // 项目接口 =========================.start
   static GET_HOMECOUNT = 'v1.0/app/count';//首页获取数据
   static GET_COMPANYlIST = 'v1.0/company/query';//入驻申请
+  static GET_USER_LIST= 'v1.0/user/company/query';//用户列表
 }

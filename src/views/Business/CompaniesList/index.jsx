@@ -3,7 +3,7 @@ import './index.less'
 import { Radio,Input,Table,Button,Pagination} from 'antd';
 const { Search } = Input;
 
-export default class Application extends React.Component {
+export default class CompaniesList extends React.Component {
   
   constructor(props) {
     super(props);
@@ -21,10 +21,12 @@ export default class Application extends React.Component {
        tdataListtitle  : [
         {title: '编号',width:100,dataIndex: 'id',fixed: 'left',  align: 'center'   },
         {title: '公司',width:300,dataIndex: 'companyName',fixed: 'left',  align: 'center'   },
-        {title: '企业身份', dataIndex: 'companyIdentityName',align: 'center'    },
-        {title: '提交人', dataIndex: 'userName', align: 'center'},
-        {title: '申请时间',width:300, dataIndex: 'createDate',align: 'center'},
-        {title: '状态', dataIndex: 'companyStatusName',align: 'center' },
+        {title: '公司简称', dataIndex: 'companyShortName',align: 'center'    },
+        {title: '超级管理员', dataIndex: 'superUserName', align: 'center'},
+        {title: '手机号码',width:300, dataIndex: 'superUserPhone',align: 'center'},
+        {title: '审核状态', dataIndex: 'companyStatusName',align: 'center' },
+        {title: '入驻时间', dataIndex: 'createDate',align: 'center' },
+        {title: '审核人/添加人', dataIndex: 'verifyUserName',align: 'center' },
         {title: '操作',fixed: 'right',width: 100,render: (row) =>  
         <Button type="primary" size="small" shape="round" onClick={this.goToCompanyDetail.bind(this,row)} icon="eye">查看</Button>,  align: 'center'},
       ],
@@ -83,7 +85,7 @@ export default class Application extends React.Component {
 
   render() {
     return (
-      <div className="application-page-content">
+      <div className="CompaniesList-page-content">
         <header className="page-header">
           <Radio.Group value={this.state.parameter.companyStatus} onChange={this.handleStatusChange}>
             <Radio.Button value="">全部</Radio.Button>
@@ -91,8 +93,10 @@ export default class Application extends React.Component {
             <Radio.Button value="2">已通过</Radio.Button>
             <Radio.Button value="3">已拒绝</Radio.Button>
           </Radio.Group>
+      
           <Search  className="mL20 search" placeholder="请输入企业名称/简称" onSearch={value => this.handleSearch(value)} enterButton />
-     
+          <Button  className="mL20" icon="plus"  type="primary">添加企业</Button>
+          <Button  className="mL20" icon="download" type="primary">导出</Button>
         </header>
         <div className="page-content">
             <div className="content-item">

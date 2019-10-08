@@ -11,6 +11,8 @@ let Table = asyncComponent(() => import('../components/Table/index'))
 let NoMatch = asyncComponent(() => import('../components/Nomatch/index'))
 let Application = asyncComponent(() => import('../views/Business/Application/index'))
 let ApplicationDetail = asyncComponent(() => import('../views/Business/Application/ApplicationDetail/ApplicationDetail'))
+let CompaniesList = asyncComponent(() => import('../views/Business/CompaniesList/index'))
+let UserList = asyncComponent(() => import('../views/Business/UserList/index'))
 
 export const childRoutes = [
   {
@@ -44,6 +46,20 @@ export const childRoutes = [
           }
         ]
     
+      },
+      {
+        key: '1.2',
+        name: '企业列表',
+        url: '/Business/CompaniesList',
+        component: CompaniesList,
+        noDropdown: false,
+      },
+      {
+        key: '1.3',
+        name: '用户列表',
+        url: '/Business/UserList',
+        component: UserList,
+        noDropdown: false,
       }
     ]
   },  

@@ -9,8 +9,8 @@ import projectConfig from './projectConfig'
 
 // 创建axios实例,用于请求后台,进行数据的交换
 const service = axios.create({
-  // baseURL:'http://192.168.0.230:9091/',
-  baseURL:'https://adminapi.manytrader.net/',
+  baseURL:'http://192.168.0.230:9091/',
+  // baseURL:'https://adminapi.manytrader.net/',
   timeout: 50000  // 请求超时时间
 })
 
