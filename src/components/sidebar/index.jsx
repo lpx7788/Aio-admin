@@ -6,7 +6,6 @@ import { Layout, Menu, Icon } from 'antd'
 const { Sider } = Layout
 const SubMenu = Menu.SubMenu
 
-
 const isActive = (path, history) => {
     return matchPath(path, {
       path: history.location.pathname,
@@ -15,7 +14,6 @@ const isActive = (path, history) => {
     })
   }
 
-  
 class SiderBar extends Component {
   constructor(props) {
     super(props)
@@ -26,9 +24,11 @@ class SiderBar extends Component {
       activeKey: '0',
     }
   }
-  // 父组件属性改变时的钩子函数
+
+  // 父组件属性改变时的钩子函数   
   componentWillReceiveProps(nextProps) {
-    //   二级菜单发生变化时候this.props.hisotory
+    // 二级菜单发生变化时候this.props.hisotory
+
       Array.isArray(childRoutes) &&childRoutes.forEach(item => {
           Array.isArray(item.child) && item.child.forEach((node) => {
               if(node.url && isActive(node.url,this.props.history)){
@@ -42,6 +42,8 @@ class SiderBar extends Component {
       mode: checked ? 'vertical' : 'inline'
     })
   }
+
+  //点击根据key高亮
   menuClickHandle = e => {
     this.setState({
         activeKey: e.key
@@ -50,16 +52,18 @@ class SiderBar extends Component {
   render() {
     let { activeKey, openKey } = this.state
     const _menuProcess = (nodes, pkey) => {
+
       return (
         Array.isArray(nodes) &&
         nodes.map((item, i) => {
+       
           const menu = _menuProcess(item.child, item.key)
           if(item.url && isActive(item.url, this.props.history)){
-            // 从state中取出状态，判断一级菜单选中
             activeKey = item.key
             openKey = pkey
           }
-          if (menu.length > 0) {
+      
+          if (menu.length > 0&&item.noDropdown) {
             return (
               <SubMenu
                 key={item.key}
@@ -95,7 +99,9 @@ class SiderBar extends Component {
         })
       )
     }
-    const menu = _menuProcess(childRoutes)
+
+    const menu = _menuProcess(childRoutes);
+  
     return (
       <Sider trigger={null} collapsible collapsed={this.state.collapsed} id='sideId'>
         <div className="nav-logo">

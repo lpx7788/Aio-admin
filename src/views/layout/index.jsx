@@ -2,12 +2,10 @@ import './index.less'
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import { Layout } from 'antd';
-import { childRoutes } from '../../router/index'
+import { routesList } from '../../router/index'
 import SiderBar from '../../components/Sidebar/index'
 import NavPath from '../../components/Navpath/index'
-
 const { Header, Content } = Layout
-
 class App extends Component {
   constructor() {
     super()
@@ -25,26 +23,14 @@ class App extends Component {
       <Layout className="layout-page ant-layout-has-sider">
         <SiderBar checked={this.state.collapsed} />
         <Content>
-     
+
           <Header className="layout-header" >
             <NavPath initialChecked={this.state.collapsed} callbackParent={this.onCheckedChange} />
           </Header>
-    
+
           <Content className="layout-content">
             <div style={{ minHeight: 460 }}>
-              {childRoutes.map(childRoute => {
-                if (childRoute.hasOwnProperty('child')) {
-                  return childRoute.child.map(route => {
-                    return (
-                      <Route
-                        key={route.key}
-                        path={route.url}
-                        component={route.component}
-                        exact={route.exactly}
-                      />
-                    )
-                  })
-                } else {
+              {routesList.map(childRoute => {
                   return (
                     <Route
                       key={childRoute.key}
@@ -53,7 +39,6 @@ class App extends Component {
                       exact={childRoute.exactly}
                     />
                   )
-                }
               })}
             </div>
           </Content>

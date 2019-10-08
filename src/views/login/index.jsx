@@ -8,7 +8,6 @@ class BasicLogin extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((errs, values) => {
       if (!errs && values) {
-        console.log('values', values)
         this.props.history.push('/home')
       }
     })

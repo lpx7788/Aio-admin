@@ -1,12 +1,7 @@
 import React from 'react'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import asyncComponent from './asyncComponent'
-// import Login from '../views/Login/index'
-// import Layout from '../views/Layout/index'
-// import Home from '../views/Home/index'
-// import Table from '../components/Table/index'
-// import NoMatch from '../components/Nomatch/index'
-// import Application from '../views/Business/Application/index'
+import routeList from './operationRouting'
 
 let Login = asyncComponent(() => import('../views/Login/index'))
 let Layout = asyncComponent(() => import('../views/Layout/index'))
@@ -17,7 +12,6 @@ let NoMatch = asyncComponent(() => import('../components/Nomatch/index'))
 let Application = asyncComponent(() => import('../views/Business/Application/index'))
 let ApplicationDetail = asyncComponent(() => import('../views/Business/Application/ApplicationDetail/ApplicationDetail'))
 
-
 export const childRoutes = [
   {
     key: '0',
@@ -25,27 +19,30 @@ export const childRoutes = [
     icon: 'file',
     url: '/home',
     component: Home,
-    exactly: true
+    exactly: true,
+    noDropdown: false
   },
   {
     key: '1',
     name: '企业管理',
     icon: 'user',
+    noDropdown: true,
     child: [
       {
         key: '1.1',
         name: '入驻申请',
         url: '/Business/Application',
         component: Application,
-        // exactly: true,
-        // child: [
-        //   {
-        //     key: '1.1.1',
-        //     name: '详情',
-        //     url: '/Business/Application/ApplicationDetail',
-        //     component: ApplicationDetail
-        //   }
-        // ]
+        noDropdown: false,
+        child: [
+          {
+            key: '1.1.1',
+            name: '详情',
+            url: '/ApplicationDetail',
+            component: ApplicationDetail,
+            noDropdown: false
+          }
+        ]
     
       }
     ]
@@ -56,25 +53,31 @@ export const childRoutes = [
     icon: 'file',
     url: '/order',
     component: Order,
-    exactly: true
+    exactly: true,
+    noDropdown: false
   },
 
   {
     key: '3',
     name: '资讯管理',
     icon: 'user',
+    noDropdown: true,
     child: [
       {
         key: '3.1',
         name: '全部资讯',
         url: '/components/table',
-        component: Table
+        component: Table,
+        noDropdown: false
       }
     ]
   },
 
 
 ]
+
+// 多维路由转化成为一维路由
+export const routesList = routeList(childRoutes)
 
 // 面包屑导航栏url对应的name
 export const breadcrumbNameMap = {

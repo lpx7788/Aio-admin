@@ -19,7 +19,6 @@ class NavPath extends React.Component {
     this.props.callbackParent(newState) //子组件调用父组件的callbackParent函数，传递新值到父组件
   }
   handleLoginOut = () => {
-    console.log('loginout')
     this.props.history.replace('/login')
   }
   render() {
@@ -38,7 +37,6 @@ class NavPath extends React.Component {
 
     const menu = (
       <Menu>
-        
         <Menu.Item key="3">
           <a onClick={this.handleLoginOut}>退出登录</a>
         </Menu.Item>
@@ -46,8 +44,6 @@ class NavPath extends React.Component {
     )
     return (
       <div className='navpth-container'>
-     
-    
         <Icon
               className="trigger"
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
