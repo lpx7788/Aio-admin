@@ -18,7 +18,6 @@ export default class Home extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props.location.query);
     this.getPageDatas();
   }
 
@@ -60,7 +59,7 @@ export default class Home extends React.Component {
         <div className="page-content">
           <div className="content-item border">
             <p className="content-title">基本数据</p>
-            <section className="card-list">
+            <section >
               {
                 this.state.dataList.map((item) => {
                   return (

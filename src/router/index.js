@@ -29,6 +29,7 @@ export const childRoutes = [
     name: '企业管理',
     icon: 'user',
     noDropdown: true,
+    url: '/Business',
     child: [
       {
         key: '1.1',
@@ -40,7 +41,7 @@ export const childRoutes = [
           {
             key: '1.1.1',
             name: '详情',
-            url: '/ApplicationDetail',
+            url: '/Application/ApplicationDetail',
             component: ApplicationDetail,
             noDropdown: false
           }
@@ -96,12 +97,12 @@ export const childRoutes = [
 export const routesList = routeList(childRoutes)
 
 // 面包屑导航栏url对应的name
-export const breadcrumbNameMap = {
-    '/components/table': 'Table',
-    '/Business/Application':'Business/Application',
-    '/home': 'Home',
-    '/order': 'Order',
-  };
+// export const breadcrumbNameMap = {
+//     '/components/table': 'Table',
+//     '/Business/Application':'Business/Application',
+//     '/home': 'Home',
+//     '/order': 'Order',
+//   };
 
 
 export default class Routers extends React.Component {

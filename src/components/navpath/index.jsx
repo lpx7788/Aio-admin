@@ -22,31 +22,61 @@ class NavPath extends React.Component {
     this.props.history.replace('/login')
   }
   render() {
-    console.log(childRoutes);
- 
-			let matched = childRoutes.filter(item => item.name)
-	
-      console.log(344);
-		console.log(matched);
-    
-    
-    // const { location } = this.props
-    // const pathSnippets = location.pathname.split('/').filter(i => i)
-    // const extreaBreadcrumbItems = pathSnippets.map((_, index) => {
-    // const url = `/${pathSnippets.slice(0, index + 1).join('/')}`
 
-    //   return (
-      {
-        matched.map((item) => {
-          return (
-            <Breadcrumb.Item key={item.key}>
-              {
-                item.name
+    const { location } = this.props
+    const pathSnippets = location.pathname
+
+    let extreaBreadcrumbItems = []
+    childRoutes.forEach((item, index) => {
+      let routesObj = {
+        name:item.name,
+        key:item.key,
+        url:item.url,
+        noDropdown:item.noDropdown
+      }
+      if (pathSnippets === item.url) {
+        extreaBreadcrumbItems = [routesObj]
+      }
+      if (item.child) {
+        item.child.forEach((i, idx) => {
+          let routesChildObj = {
+            name:i.name,
+            key:i.key,
+            url:i.url,
+            noDropdown:i.noDropdown
+          }
+          if (pathSnippets === i.url) {
+            extreaBreadcrumbItems = [routesObj, routesChildObj]
+          }
+          if (i.child) {
+            i.child.forEach((j, idx) => {
+              let routesgrandObj = {
+                 name:j.name,
+                 key:j.key,
+                 url:j.url,
+                 noDropdown:j.noDropdown
               }
-            </Breadcrumb.Item>
-          )
+              if (pathSnippets === j.url) {
+                extreaBreadcrumbItems = [routesObj, routesChildObj,routesgrandObj]
+              }
+            })
+          }
         })
       }
+    })
+  console.log(extreaBreadcrumbItems);
+    const breadcrumbItems = (
+        extreaBreadcrumbItems.map((item) => {
+          return (
+           <Breadcrumb.Item key={item.key}>
+            {
+              item.noDropdown === true ? item.name: (<Link to={item.url}>{item.name}</Link>)
+            }
+           </Breadcrumb.Item>
+          )
+        })
+    )
+
 
 
     const menu = (
@@ -57,17 +87,19 @@ class NavPath extends React.Component {
       </Menu>
     )
 
- 
+
     return (
       <div className='navpth-container'>
         <Icon
-              className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.toggle}
-            />
-            
+          className="trigger"
+          type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+          onClick={this.toggle}
+        />
+
         <Breadcrumb className="breadcrumb" >
-        
+          {
+            breadcrumbItems
+          }
         </Breadcrumb>
         <div className="drop-down">
           <Dropdown overlay={menu}>
