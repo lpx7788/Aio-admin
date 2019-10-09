@@ -2,6 +2,7 @@ import React from 'react'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import asyncComponent from './asyncComponent'
 import routeList from './operationRouting'
+import AuthRouter from './frontendCuth'
 
 let Login = asyncComponent(() => import('../views/Login/index'))
 let Layout = asyncComponent(() => import('../views/Layout/index'))
@@ -109,12 +110,21 @@ export const childRoutes = [
     icon: 'file',
     url: '/login',
     component: Login,
-    exactly: false,
+    exactly: true,
     noDropdown: false,
     auth:false
   },
 ]
-
+let token ='3434'
+function requireAuth(Layout, props) {
+  console.log(Layout, props)
+  
+  if(token){
+      return <Layout {...props} />
+  } else {
+    return  <Redirect exact path="/" to="/login" />
+  }
+}
 // 多维路由转化成为一维路由
 export const routesList = routeList(childRoutes)
 
@@ -122,12 +132,14 @@ export default class Routers extends React.Component {
   render() {
     return (
       <Router>
+        
         <Switch>
           <Route exact path="/login" component={Login} />
           <Redirect exact path="/" to="/login" />
-          <Route component={Layout} />
+          <Route component={props => requireAuth(Layout, props)} />
           <Route path="*" component={NoMatch} />
         </Switch>
+
       </Router>
     )
   }
