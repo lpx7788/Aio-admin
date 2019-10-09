@@ -25,7 +25,7 @@ class NavPath extends React.Component {
 
     const { location } = this.props
     const pathSnippets = location.pathname
-
+    
     let extreaBreadcrumbItems = []
     childRoutes.forEach((item, index) => {
       let routesObj = {
@@ -64,7 +64,7 @@ class NavPath extends React.Component {
         })
       }
     })
-  console.log(extreaBreadcrumbItems);
+
     const breadcrumbItems = (
         extreaBreadcrumbItems.map((item) => {
           return (
@@ -76,8 +76,6 @@ class NavPath extends React.Component {
           )
         })
     )
-
-
 
     const menu = (
       <Menu>

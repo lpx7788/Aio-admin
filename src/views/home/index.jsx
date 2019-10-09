@@ -27,9 +27,11 @@ export default class Home extends React.Component {
     global.httpClient
     .request(global.projectConfig.GET_HOMECOUNT,this.state.parameter, "post")
     .then(res => {
+      
       self.setState({
         dataList: res.returnObject
       });
+
     }).catch(function (err) {});
   }
   //修改日期
