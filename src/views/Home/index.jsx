@@ -63,8 +63,8 @@ export default class Home extends React.Component {
               {
                 this.state.dataList.map((item) => {
                   return (
-                    <div className='card-list border' key={item.type}>
-                      <Card title={item.common} bordered={false} style={{ width: 240 }}>
+                    <div className='card-list-item border' key={item.type} style={{ width: 240 }}>
+                      <Card title={item.common} bordered={false} >
                         <p className="number bloc500">{item.count}</p>
                         <p className="red persen bloc500">{item.percentage}</p>
                       </Card>
