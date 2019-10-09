@@ -1,4 +1,4 @@
-##基于react+antd+react-router+redux+mock后台管理系统
+##基于react+antd+react-router+redux 后台管理系统
 
 ##运行环境说明
 > react V16.2.0
@@ -30,6 +30,8 @@
 - 3.安装依赖包 npm install 
 - 4.启动服务 npm start / npm run satrt
 - 5.打包构建 npm build / npm run build
+- 6.登录   18126823343    a123456b
+
 
 
 ## 目录结构
@@ -45,13 +47,12 @@
 │   │   ├── asyncComponent          //路由按需加载
 │   │   ├── index                   //路由管理
 │   ├── utils                       // 全局公用方法
-│   ├── views                       // views
+│   ├── views                       // 页面文件
 │   ├── index.css                   // 全局css样式
 │   ├── index.js                    // 入口js 初始化 加载组件等
 │   ├── logo.svg                    // log图标
 │   └── registerServiceWorker.js    // 本地创建service worker 
 ├── .gitignore                      // git 忽略项
-├── package-lock.json               // package.json
 └── package.json                    // package.json
 
 ```

@@ -6,6 +6,9 @@ function TabsCallback(key) { //Tabs选中回调
   console.log(key);
 }
 export default class ApplicationDetail extends React.Component {
+  componentWillMount(){
+    console.log(this.props.location.query.companyCode)
+  }
   componentDidMount() {
  
   }
