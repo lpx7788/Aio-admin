@@ -2,7 +2,7 @@ import React from 'react'
 import { Row, Card, Tabs } from 'antd'
 
 const { TabPane } = Tabs;
-function callback(key) {
+function TabsCallback(key) { //Tabs选中回调
   console.log(key);
 }
 export default class ApplicationDetail extends React.Component {
@@ -12,7 +12,7 @@ export default class ApplicationDetail extends React.Component {
   
   render() {
     return (
-      <Tabs defaultActiveKey="1" onChange={callback} type="card">
+      <Tabs defaultActiveKey="1" onChange={TabsCallback} type="card">
         <TabPane tab="基本信息" key="1">
           Content of Tab Pane 1
         </TabPane>

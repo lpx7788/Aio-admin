@@ -38,7 +38,7 @@ export default class Application extends React.Component {
 
   //跳转详情页
   goToCompanyDetail(row) {
-    this.props.history.push({ pathname : '/ApplicationDetail' ,query : { companyCode: row.companyCode} })
+    this.props.history.push({ pathname : '/Application/ApplicationDetail' ,query : { companyCode: row.companyCode} })
   }
 
   //获取页面数据
