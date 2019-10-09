@@ -4,7 +4,7 @@
  * 请求URL等
  */
 
-export default class projectConfig {
+ export default class projectConfig {
 
   // 返回状态码 =========================.start
   static RESPONSE_CODE_ERROR_SERVER_ERROR = 500; // 500 系统内部异常

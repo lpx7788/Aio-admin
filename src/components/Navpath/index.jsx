@@ -22,12 +22,12 @@ class NavPath extends React.Component {
     this.props.history.replace('/login')
   }
   render() {
-    console.log(childRoutes);
+    // console.log(childRoutes);
  
 			let matched = childRoutes.filter(item => item.name)
 	
-      console.log(344);
-		console.log(matched);
+    //   console.log(344);
+		// console.log(matched);
     
     
     // const { location } = this.props

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ENV_LIST from './host_config'
 // import { Toast } from 'vant';
 
 // 遮罩层组件
@@ -9,8 +10,7 @@ import projectConfig from './projectConfig'
 
 // 创建axios实例,用于请求后台,进行数据的交换
 const service = axios.create({
-  baseURL:'http://192.168.0.230:9091/',
-  // baseURL:'https://adminapi.manytrader.net/',
+  baseURL: ENV_LIST[process.env.NODE_ENV].adminHostName,
   timeout: 50000  // 请求超时时间
 })
 
