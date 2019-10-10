@@ -20,13 +20,13 @@ export default class Application extends React.Component {
 
       //table标题
        tdataListtitle  : [
-        {title: '编号',width:100,dataIndex: 'id',fixed: 'left',  align: 'center'   },
-        {title: '公司',width:300,dataIndex: 'companyName',fixed: 'left',  align: 'center'   },
+        {title: '编号',width:100,dataIndex: 'id',align: 'center'   },
+        {title: '公司',width:300,dataIndex: 'companyName', align: 'center'   },
         {title: '企业身份', dataIndex: 'companyIdentityName',align: 'center'    },
         {title: '提交人', dataIndex: 'userName', align: 'center'},
         {title: '申请时间',width:300, dataIndex: 'createDate',align: 'center'},
         {title: '状态', dataIndex: 'companyStatusName',align: 'center' },
-        {title: '操作',fixed: 'right',width: 100,render: (row) =>  
+        {title: '操作',width: 100,render: (row) =>  
         <Button type="primary" size="small" shape="round" onClick={this.goToCompanyDetail.bind(this,row)} icon="eye">查看</Button>,  align: 'center'},
       ],
     };

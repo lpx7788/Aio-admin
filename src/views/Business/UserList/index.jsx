@@ -22,7 +22,7 @@ export default class UserList extends React.Component {
       //table标题
       tdataListtitle: [
         {
-          title: '用户编号', width: 100, dataIndex: 'userId', fixed: 'left', align: 'center', render: (value, row, index) => {
+          title: '用户编号', width: 100, dataIndex: 'userId', align: 'center', render: (value, row, index) => {
             const obj = {
               children: value,
               props: {},
@@ -33,7 +33,7 @@ export default class UserList extends React.Component {
           }
         },
         {
-          title: '真实姓名', width: 300, dataIndex: 'userName', fixed: 'left', align: 'center', render: (value, row, index) => {
+          title: '真实姓名', width: 300, dataIndex: 'userName', align: 'center', render: (value, row, index) => {
             const obj = {
               children: value,
               props: {},
@@ -60,7 +60,7 @@ export default class UserList extends React.Component {
         { title: '企业认证状态', dataIndex: 'userCompanyStatusName', align: 'center' },
         { title: '上次登录时间', dataIndex: 'lastLoginDate', align: 'center' },
         {
-          title: '操作', fixed: 'right', width: 100,
+          title: '操作', width: 100,
           render: (value, row, index) => {
             const obj = {
               children: <Button type="primary" size="small" shape="round" onClick={this.goToCompanyDetail.bind(this, row)} icon="eye">查看</Button>,

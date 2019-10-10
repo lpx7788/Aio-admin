@@ -20,15 +20,15 @@ export default class CompaniesList extends React.Component {
 
       //table标题
        tdataListtitle  : [
-        {title: '编号',width:100,dataIndex: 'id',fixed: 'left',  align: 'center'   },
-        {title: '公司',width:300,dataIndex: 'companyName',fixed: 'left',  align: 'center'   },
+        {title: '编号',width:100,dataIndex: 'id',  align: 'center'   },
+        {title: '公司',width:300,dataIndex: 'companyName', align: 'center'   },
         {title: '公司简称', dataIndex: 'companyShortName',align: 'center'    },
         {title: '超级管理员', dataIndex: 'superUserName', align: 'center'},
         {title: '手机号码',width:300, dataIndex: 'superUserPhone',align: 'center'},
         {title: '审核状态', dataIndex: 'companyStatusName',align: 'center' },
         {title: '入驻时间', dataIndex: 'createDate',align: 'center' },
         {title: '审核人/添加人', dataIndex: 'verifyUserName',align: 'center' },
-        {title: '操作',fixed: 'right',width: 100,render: (row) =>  
+        {title: '操作',width: 100,render: (row) =>  
         <Button type="primary" size="small" shape="round" onClick={this.goToCompanyDetail.bind(this,row)} icon="eye">查看</Button>,  align: 'center'},
       ],
     };
