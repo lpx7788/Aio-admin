@@ -1,6 +1,6 @@
 import './index.less'
 import React from 'react'
-import { Breadcrumb, Icon, Dropdown, Menu, Avatar } from 'antd'
+import { Breadcrumb,Icon, Dropdown, Menu, Avatar } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 import { childRoutes } from '../../router/index'
 
@@ -8,10 +8,20 @@ class NavPath extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      collapsed: this.props.initialChecked
+      collapsed: this.props.initialChecked,
+      userName:''
     }
     this.toggle = this.toggle.bind(this) //必须要绑定this
     this.handleLoginOut = this.handleLoginOut.bind(this)
+  }
+  componentWillMount(){
+    let userName = localStorage.getItem('userData')
+    if(userName){
+      userName = JSON.parse(localStorage.getItem('userData'))
+      this.setState({
+        userName:userName.user.userName
+      })
+    }
   }
   toggle() {
     const newState = !this.state.collapsed
@@ -99,12 +109,15 @@ class NavPath extends React.Component {
             breadcrumbItems
           }
         </Breadcrumb>
-        <div className="drop-down">
-          <Dropdown overlay={menu}>
-            <a className="antd-drown-link">
-              <Avatar shape="square" icon="user" />
-            </a>
-          </Dropdown>
+        <div className="userinfo ">
+           <span className="user">用户：{this.state.userName} </span>
+             <div className="drop-down">
+               <Dropdown overlay={menu}>
+                 <div className="antd-drown-link">
+                   <span>注销登陆</span>
+                 </div>
+               </Dropdown>
+             </div>
         </div>
       </div>
     )

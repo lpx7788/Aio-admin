@@ -81,7 +81,8 @@ class BasicLogin extends React.Component {
               }
             }
           }
-          localStorage.setItem("userData", userData);
+          
+          localStorage.setItem("userData", JSON.stringify(userData));
           localStorage.setItem("token", userData.access_token);
           this.props.history.push('/home')
         }
