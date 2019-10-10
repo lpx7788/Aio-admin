@@ -13,10 +13,12 @@ export default class httpClient {
    */
   static request (postUrl, param,method,baseURL) {
     let headers = {}
-    // headers['X-Requested-With'] = 'XMLHttpRequest'
-    // if (param.token !== undefined) {
-      headers['access_token'] = 'e9b68b96ef3648adb99c1a8a9a3b12c3_f3914e67123e47b8acb46e557e9243dc'
-    // }
+    let token = localStorage.getItem("token");
+    if(token!== undefined){
+      headers['access_token'] = token
+    }else{
+      headers['X-Requested-With'] = 'XMLHttpRequest'
+    }
     let params = {
       url: postUrl,
       method: method?method:'post',

@@ -62,40 +62,41 @@ class SiderBar extends Component {
             activeKey = item.key
             openKey = pkey
           }
-      
-          if (menu.length > 0&&item.noDropdown) {
-            return (
-              <SubMenu
-                key={item.key}
-                title={
-                  <span>
-                    <Icon type={item.icon} />
-                    <span  className="nav-text" >{item.name}</span>
-                  </span>
-                }
-              >
-                {menu}
-              </SubMenu>
-            )
-          } else {
-            return (
-              <Menu.Item key={item.key}>
-                {item.url ? (
-                  <Link to={item.url} className="nav-link">
+          if(item.auth){
+            if (menu.length > 0&&item.noDropdown) {
+              return (
+                <SubMenu
+                  key={item.key}
+                  title={
+                    <span>
+                      <Icon type={item.icon} />
+                      <span  className="nav-text" >{item.name}</span>
+                    </span>
+                  }
+                >
+                  {menu}
+                </SubMenu>
+              )
+            } else {
+              return (
+                <Menu.Item key={item.key}>
+                  {item.url ? (
+                    <Link to={item.url} className="nav-link">
+                      <span  className="nav-text">
+                        {item.icon && <Icon type={item.icon} />}
+                        {item.name}
+                      </span>
+                    </Link>
+                  ) : (
                     <span  className="nav-text">
                       {item.icon && <Icon type={item.icon} />}
                       {item.name}
                     </span>
-                  </Link>
-                ) : (
-                  <span  className="nav-text">
-                    {item.icon && <Icon type={item.icon} />}
-                    {item.name}
-                  </span>
-                )}
-              </Menu.Item>
-            )
-          }
+                  )}
+                </Menu.Item>
+              )
+            }
+         }
         })
       )
     }

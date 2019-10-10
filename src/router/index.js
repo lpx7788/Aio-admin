@@ -1,7 +1,7 @@
 import React from 'react'
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import asyncComponent from './asyncComponent'
-import routeList from './operationRouting'
+import operationRouting from './operationRouting'
 
 let Login = asyncComponent(() => import('../views/Login/index'))
 let Layout = asyncComponent(() => import('../views/Layout/index'))
@@ -15,6 +15,9 @@ let CompaniesList = asyncComponent(() => import('../views/Business/CompaniesList
 let UserList = asyncComponent(() => import('../views/Business/UserList/index'))
 
 export const childRoutes = [
+  // exactly ： 是否严格模式
+  // noDropdown ：是否有下拉按钮
+  // auth ：是否需要登录授权
   {
     key: '0',
     name: '平台主页',
@@ -22,13 +25,15 @@ export const childRoutes = [
     url: '/home',
     component: Home,
     exactly: true,
-    noDropdown: false
+    noDropdown: false,
+    auth:true
   },
   {
     key: '1',
     name: '企业管理',
     icon: 'user',
     noDropdown: true,
+    auth:true,
     url: '/Business',
     child: [
       {
@@ -37,16 +42,18 @@ export const childRoutes = [
         url: '/Business/Application',
         component: Application,
         noDropdown: false,
+        auth:true,
         child: [
           {
             key: '1.1.1',
             name: '详情',
             url: '/Application/ApplicationDetail',
             component: ApplicationDetail,
-            noDropdown: false
+            noDropdown: false,
+            auth:true,
           }
         ]
-    
+
       },
       {
         key: '1.2',
@@ -54,6 +61,7 @@ export const childRoutes = [
         url: '/Business/CompaniesList',
         component: CompaniesList,
         noDropdown: false,
+        auth:true,
       },
       {
         key: '1.3',
@@ -61,9 +69,10 @@ export const childRoutes = [
         url: '/Business/UserList',
         component: UserList,
         noDropdown: false,
+        auth:true,
       }
     ]
-  },  
+  },
   {
     key: '2',
     name: '订单管理',
@@ -71,7 +80,8 @@ export const childRoutes = [
     url: '/order',
     component: Order,
     exactly: true,
-    noDropdown: false
+    noDropdown: false,
+    auth:true,
   },
 
   {
@@ -79,40 +89,39 @@ export const childRoutes = [
     name: '资讯管理',
     icon: 'user',
     noDropdown: true,
+    auth:true,
     child: [
       {
         key: '3.1',
         name: '全部资讯',
         url: '/components/table',
         component: Table,
-        noDropdown: false
+        noDropdown: false, 
+        auth:true,
       }
     ]
   },
-
-
+  {
+    key: '99',
+    name: '登录',
+    icon: 'file',
+    url: '/login',
+    component: Login,
+    exactly: true,
+    noDropdown: false,
+    auth:false
+  },
 ]
 
 // 多维路由转化成为一维路由
-export const routesList = routeList(childRoutes)
-
-// 面包屑导航栏url对应的name
-// export const breadcrumbNameMap = {
-//     '/components/table': 'Table',
-//     '/Business/Application':'Business/Application',
-//     '/home': 'Home',
-//     '/order': 'Order',
-//   };
-
-
+export const routesList = operationRouting.getRouteList(childRoutes)
 export default class Routers extends React.Component {
   render() {
     return (
       <Router>
         <Switch>
           <Route exact path="/login" component={Login} />
-          <Redirect exact path="/" to="/login" />
-          <Route component={Layout} />
+          <Route component={props => operationRouting.requireAuth(Layout, props)} />
           <Route path="*" component={NoMatch} />
         </Switch>
       </Router>
