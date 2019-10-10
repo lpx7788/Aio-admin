@@ -127,7 +127,7 @@ module.exports = function(webpackEnv) {
             sourceMap: true,
             modifyVars: {
               // "@primary-color": "#c00",
-              "@font-size-base": "12px",
+              "@font-size-base": "14px",
             }
           },
         }

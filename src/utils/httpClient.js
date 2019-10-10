@@ -1,4 +1,5 @@
 import fetch from './fetch'
+import ENV_LIST from './host_config'
 
 /**
  * 此js 根据fetch.js 封装了一些http请求的方法
@@ -22,7 +23,7 @@ export default class httpClient {
       data: param,
       headers: headers
     }
-    if(baseURL) params.baseURL = baseURL
+    if(baseURL) params.baseURL = ENV_LIST[process.env.NODE_ENV].apiHostName
     return new Promise((resolve, reject) => {
       fetch(params)
       .then(res => {
