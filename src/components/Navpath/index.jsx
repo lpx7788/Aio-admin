@@ -95,7 +95,6 @@ class NavPath extends React.Component {
       </Menu>
     )
 
-
     return (
       <div className='navpth-container'>
         <Icon
