@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 // 路由多维数组变成一维数组
 const getRouteList =  function getRouteList(arr) {

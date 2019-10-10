@@ -10,6 +10,7 @@ export default class CompaniesList extends React.Component {
     this.state = {
       dataList: [],//页面数据
       totalPage:0,//总页数
+      tableListLoading:true,//table的loading
       parameter:{ //请求参数
         companyStatus: '',
         pageNum: 1,
@@ -51,7 +52,8 @@ export default class CompaniesList extends React.Component {
     .then(res => {
       self.setState({
         dataList: res.returnObject.list,
-        totalPage : res.returnObject.total
+        totalPage : res.returnObject.total,
+        tableListLoading:false
       });
      
     }).catch(function (err) {});
@@ -69,18 +71,28 @@ export default class CompaniesList extends React.Component {
 
   //修改状态
   handleStatusChange = e => {
+    this.setState({
+      tableListLoading:true
+    });
     let value = e.target.value;
     this.handleParameter(value,'companyStatus')
   }
 
   //搜索
   handleSearch(val){
+    this.setState({
+      tableListLoading:true
+    });
     let value = val
     this.handleParameter(value,'queryKey')
   }
 
+  // 分页
   onPageChange = e =>{
-   this.handleParameter(e,'pageNum')
+    this.setState({
+      tableListLoading:true
+    });
+    this.handleParameter(e,'pageNum')
   }
 
   render() {
@@ -100,7 +112,7 @@ export default class CompaniesList extends React.Component {
         </header>
         <div className="page-content">
             <div className="content-item">
-              <Table size="middle" pagination={ false } rowKey={row=>row.id} bordered columns={this.state.tdataListtitle} dataSource={this.state.dataList}/>
+              <Table loading={this.state.tableListLoading}  size="middle" pagination={ false } rowKey={row=>row.id} bordered columns={this.state.tdataListtitle} dataSource={this.state.dataList}/>
               <section className={ `m20 ${this.state.dataList.length!==0 ? 'show' : 'hidden'}`}  >
                  <Pagination size="small" total={this.state.totalPage} onChange={ this.onPageChange } showSizeChanger={true}  />
               </section>
