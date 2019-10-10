@@ -1,8 +1,7 @@
 import React from 'react'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import asyncComponent from './asyncComponent'
-import routeList from './operationRouting'
-import AuthRouter from './frontendCuth'
+import operationRouting from './operationRouting'
 
 let Login = asyncComponent(() => import('../views/Login/index'))
 let Layout = asyncComponent(() => import('../views/Layout/index'))
@@ -15,12 +14,10 @@ let ApplicationDetail = asyncComponent(() => import('../views/Business/Applicati
 let CompaniesList = asyncComponent(() => import('../views/Business/CompaniesList/index'))
 let UserList = asyncComponent(() => import('../views/Business/UserList/index'))
 
-// exactly ： 是否严格模式
-// noDropdown ：是否有下拉按钮
-// auth ：是否需要登录授权
-
 export const childRoutes = [
-  
+  // exactly ： 是否严格模式
+  // noDropdown ：是否有下拉按钮
+  // auth ：是否需要登录授权
   {
     key: '0',
     name: '平台主页',
@@ -115,31 +112,18 @@ export const childRoutes = [
     auth:false
   },
 ]
-let token ='3434'
-function requireAuth(Layout, props) {
-  console.log(Layout, props)
-  
-  if(token){
-      return <Layout {...props} />
-  } else {
-    return  <Redirect exact path="/" to="/login" />
-  }
-}
-// 多维路由转化成为一维路由
-export const routesList = routeList(childRoutes)
 
+// 多维路由转化成为一维路由
+export const routesList = operationRouting.getRouteList(childRoutes)
 export default class Routers extends React.Component {
   render() {
     return (
       <Router>
-        
         <Switch>
           <Route exact path="/login" component={Login} />
-          <Redirect exact path="/" to="/login" />
-          <Route component={props => requireAuth(Layout, props)} />
+          <Route component={props => operationRouting.requireAuth(Layout, props)} />
           <Route path="*" component={NoMatch} />
         </Switch>
-
       </Router>
     )
   }

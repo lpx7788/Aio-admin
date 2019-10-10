@@ -10,7 +10,6 @@ export default function asyncComponent(importComponent) {
         component: null
       };
     }
-
     async componentDidMount() {
       const { default: component } = await importComponent();
 
@@ -18,13 +17,10 @@ export default function asyncComponent(importComponent) {
         component: component
       });
     }
-
     render() {
       const C = this.state.component;
-
       return C ? <C {...this.props} /> : null;
     }
   }
-
   return AsyncComponent;
 }
