@@ -1,6 +1,6 @@
 import './index.less'
 import React from 'react'
-import { Breadcrumb,Icon, Dropdown, Menu, Avatar } from 'antd'
+import { Breadcrumb,Icon, Dropdown, Menu } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 import { childRoutes } from '../../router/index'
 
@@ -14,7 +14,7 @@ class NavPath extends React.Component {
     this.toggle = this.toggle.bind(this) //必须要绑定this
     this.handleLoginOut = this.handleLoginOut.bind(this)
   }
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     let userName = localStorage.getItem('userData')
     if(userName){
       userName = JSON.parse(localStorage.getItem('userData'))
@@ -90,7 +90,7 @@ class NavPath extends React.Component {
     const menu = (
       <Menu>
         <Menu.Item key="3">
-          <a onClick={this.handleLoginOut}>退出登录</a>
+          <span  onClick={this.handleLoginOut}>退出登录</span>
         </Menu.Item>
       </Menu>
     )

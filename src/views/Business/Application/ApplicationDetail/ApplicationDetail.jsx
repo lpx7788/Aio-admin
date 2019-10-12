@@ -1,12 +1,12 @@
 import React from 'react'
 import './ApplicationDetail.less'
-import { Row, Col, Card, Tabs, Button, Tag, Table } from 'antd'
+import { Row, Col, Card, Tabs, Button, Tag, Table, Alert, Modal, Form, Input } from 'antd'
 import { func } from 'prop-types';
 import RcViewer from '@hanyk/rc-viewer'
 
 const { TabPane } = Tabs;
-export default class ApplicationDetail extends React.Component {
-
+const { TextArea } = Input;
+class ApplicationDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,19 +23,26 @@ export default class ApplicationDetail extends React.Component {
         {title: '采购额度', dataIndex: ''},
         {title: '销售额度', dataIndex: ''}
       ],
+      examinePass_visible: false, //审核通过弹窗
+      examineReject_visible: false, //审核拒绝弹窗
+      loading: false,
+      examineCompany: {
+        companyShortName: '', //公司简称
+        referrer: '', //推荐人
+        remark: '' //备注
+      }
     };
   }
 
   componentDidMount() {
     this.getPageDatas()
   }
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     if(this.props.location.query) sessionStorage.setItem('companyCode',this.props.location.query.companyCode) //将companyCode存入缓存
     this.setState({
       companyCode: sessionStorage.getItem('companyCode')?sessionStorage.getItem('companyCode'):''
     })
   }
-
   componentWillUnmount(){
     sessionStorage.removeItem('companyCode') //离开页面前销毁companyCode缓存
   }
@@ -94,7 +101,7 @@ export default class ApplicationDetail extends React.Component {
         let tradingCategoryCodeList = this.state.companyData.tradingCategoryCode.split(',')
         this.state.allCategoryLevel3List.forEach(item => {
           tradingCategoryCodeList.forEach(i => {
-            if(item.categoryCode == i){
+            if(item.categoryCode === i){
               this.state.categoryNameList.push(item.categoryName)
             }
           })
@@ -119,8 +126,8 @@ export default class ApplicationDetail extends React.Component {
       })
     }).catch(function (err) {})
   }
-
-  TabsCallback(key) { //Tabs选中回调
+  //Tabs选中回调
+  TabsCallback(key) { 
     let self = this
     switch(key){
       case '1':
@@ -133,20 +140,137 @@ export default class ApplicationDetail extends React.Component {
         break;
     }
   }
+  // 打开审核弹窗
+  examineCompanyOpen(val){
+    if(val===1){
+      this.setState({
+        examinePass_visible: true
+      })
+    }else{
+      this.setState({
+        examineReject_visible: true
+      })
+    }
+  }
+  // 关闭审核弹窗
+  examineCompanyCancel(val){
+    if(val===1){
+      this.setState({
+        examinePass_visible: false
+      })
+    }else{
+      this.setState({
+        examineReject_visible: false
+      })
+    }
+  }
+  // 审核确认
+  examineCompanySumbit(val){
+    console.log(this.state.examineCompany.companyShortName)
+    if(val===1){
+      this.setState({
+        loading: true
+      })
+      let self = this;
+      global.httpClient.request(global.projectConfig.GET_CUSTOMER_LIST,
+      {pageNum: 1,
+        // pageSize: 10,
+        companyCode: this.state.companyCode}, 
+      "post")
+      .then(res => {
+        self.setState({
+          loading: false,
+          examinePass_visible: false
+        })
+      }).catch(function (err) {})
+    }else{
+      this.setState({
+        loading: true
+      })
+    }
+  }
+  examineCompany_afterClose(){
+    this.setState({ //弹窗关闭取消loading
+      loading: false
+    })
+  }
 
   render() {
+    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
     const options={}
     return (
       <Tabs defaultActiveKey="1" onChange={this.TabsCallback.bind(this)} type="card">
         <TabPane tab="基本信息" key="1">
           <div className="companyStatus basic-item">
-            <div className="companyStatus_l fl"><h3 className="inline_b">{this.state.companyData.companyName}</h3><Tag color="#87d068" className={this.state.companyData.carefullyChosenSeller?'':''}>精选卖家</Tag><span>当前状态：{this.state.companyData.companyStatusName}</span></div>
+            <div className="companyStatus_l fl">
+              <h3 className="inline_b">{this.state.companyData.companyName}</h3>
+              <div className={this.state.companyData.carefullyChosenSeller===null?'hidden':''}><Tag color="#87d068">精选卖家</Tag></div>
+              <span>当前状态：<Alert className="inline_b" size="small" message={this.state.companyData.companyStatusName} type={this.state.companyData.companyStatus===1?'warning':(this.state.companyData.companyStatus===2?'success':(this.state.companyData.companyStatus===3?'error':'info'))} /></span>
+            </div>
             <div className="companyStatus_r fr">
-              <div className={this.state.companyData.companyStatus==1?'':'hidden'}>
-                <Button type="primary" icon="check">通过</Button><Button type="danger" icon="close">拒绝</Button>
+              <div className={this.state.companyData.companyStatus==='1'?'':'hidden'}>
+                <Button type="primary" icon="check" onClick={this.examineCompanyOpen.bind(this,1)}>通过</Button><Button type="danger" icon="close" onClick={this.examineCompanyOpen.bind(this,0)}>拒绝</Button>
+                <Modal
+                  title="审核通过"
+                  centered={true}
+                  okText="确定"
+                  cancelText="取消"
+                  visible={this.state.examinePass_visible}
+                  afterClose={this.examineCompany_afterClose.bind(this)}
+                  onCancel={this.examineCompanyCancel.bind(this,1)}
+                  footer={[
+                    <Button key="back" onClick={this.examineCompanyCancel.bind(this,1)}>
+                      取消
+                    </Button>,
+                    <Button key="submit" type="primary" loading={this.state.loading} onClick={this.examineCompanySumbit.bind(this,0)}>
+                      确定
+                    </Button>,
+                  ]}
+                >
+                  <Form layout="horizontal">
+                    <Form.Item label="企业名称：" labelCol={ {span: 4} } wrapperCol={ {span: 20} }>
+                      <span>{this.state.companyData.companyName}，确认审核通过</span>
+                    </Form.Item>
+                    <Form.Item label="企业简称：" labelCol={ {span: 4} } wrapperCol={ {span: 20} }>
+                      {getFieldDecorator('companyShortName', {
+                        rules: [{ required: true, message: '请输入企业简称，8个中文以内', len: 8 }],
+                        initalValue: "请输入企业简称，8个中文以内"
+                      })(
+                        <Input/>
+                      )}
+                    </Form.Item>
+                    {/* <Form.Item label="推荐人：" labelCol={ {span: 4} } wrapperCol={ {span: 20} }>
+                      {getFieldDecorator('referrer', {
+                        rules: [{ required: true, message: '请输入企业简称，8个中文以内', len: 8 }],
+                      })(
+                        <Input
+                        placeholder="20字内"
+                        value={this.state.examineCompany.referrer}
+                        />
+                      )}
+                    </Form.Item>
+                    <Form.Item label="备注：" labelCol={ {span: 4} } wrapperCol={ {span: 20} }>
+                    {getFieldDecorator('remark', {
+                        rules: [{ required: true, message: '请输入企业简称，8个中文以内', len: 8 }],
+                      })(
+                        <TextArea
+                        placeholder="100字内"
+                        value={this.state.examineCompany.remark}
+                        />
+                      )}
+                    </Form.Item> */}
+                  </Form>
+                </Modal>
+                <Modal
+                  title="拒绝理由"
+                  visible={this.state.examineReject_visible}
+                  onOk={this.handleOk}
+                  onCancel={this.examineCompanyCancel.bind(this,0)}
+                >
+                </Modal>
               </div>
-              <div className={this.state.companyData.companyStatus==2||this.state.companyData.companyStatus==3?'':'hidden'}>
-                <Button type="primary" icon="check">编辑</Button>
+              <div className={this.state.companyData.companyStatus==='2'||this.state.companyData.companyStatus==='3'?'':'hidden'}>
+                <Button type="primary" icon="edit">编辑</Button>
               </div>
             </div>
           </div>
@@ -170,7 +294,7 @@ export default class ApplicationDetail extends React.Component {
               <Col span={8}><p>企业注册资本：{this.state.companyData.registeredCapital} 万元</p></Col>
               <Col span={8}><p>交易品种：{this.state.categoryNameList.map((item,index)=>{
                 return(
-                  <span key={item}>{item}<i  className={index==this.state.categoryNameList.length-1?'hidden':''}>，</i></span>
+                  <span key={item}>{item}<i  className={index===this.state.categoryNameList.length-1?'hidden':''}>，</i></span>
                 )
               })}</p></Col>
             </Row>
@@ -284,3 +408,5 @@ export default class ApplicationDetail extends React.Component {
     )
   }
 }
+
+export default Form.create()(ApplicationDetail);

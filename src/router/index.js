@@ -5,14 +5,15 @@ import operationRouting from './operationRouting'
 
 let Login = asyncComponent(() => import('../views/Login/index'))
 let Layout = asyncComponent(() => import('../views/Layout/index'))
-let Home = asyncComponent(() => import('../views/Home/index'))
-let Order = asyncComponent(() => import('../views/Order/index'))
+let Home = asyncComponent(() => import('../views/Home/HomeList'))
+// let Order = asyncComponent(() => import('../views/Order/index'))
+let OrderManagement = asyncComponent(() => import('../views/OrderManagement/OrderList/OrderList'))
 let Table = asyncComponent(() => import('../components/Table/index'))
 let NoMatch = asyncComponent(() => import('../components/Nomatch/index'))
-let Application = asyncComponent(() => import('../views/Business/Application/index'))
+let Application = asyncComponent(() => import('../views/Business/Application/ApplicationList/ApplicationList'))
 let ApplicationDetail = asyncComponent(() => import('../views/Business/Application/ApplicationDetail/ApplicationDetail'))
-let CompaniesList = asyncComponent(() => import('../views/Business/CompaniesList/index'))
-let UserList = asyncComponent(() => import('../views/Business/UserList/index'))
+let CompaniesList = asyncComponent(() => import('../views/Business/CompaniesList/CompaniesList'))
+let UserList = asyncComponent(() => import('../views/Business/UserList/UserList'))
 
 export const childRoutes = [
   // exactly ： 是否严格模式
@@ -53,7 +54,6 @@ export const childRoutes = [
             auth:true,
           }
         ]
-
       },
       {
         key: '1.2',
@@ -73,17 +73,26 @@ export const childRoutes = [
       }
     ]
   },
+  // {
+  //   key: '2',
+  //   name: '订单管理',
+  //   icon: 'file',
+  //   url: '/order',
+  //   component: Order,
+  //   exactly: true,
+  //   noDropdown: false,
+  //   auth:true,
+  // },
   {
     key: '2',
     name: '订单管理',
     icon: 'file',
-    url: '/order',
-    component: Order,
+    url: '/OrderManagement',
+    component: OrderManagement,
     exactly: true,
     noDropdown: false,
     auth:true,
   },
-
   {
     key: '3',
     name: '资讯管理',

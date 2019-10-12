@@ -1,8 +1,8 @@
 import React from 'react'
-import './index.less'
-import { Radio, Input, Table, Button, Pagination } from 'antd';
+import './UserList.less'
+import { Input, Table, Button, Pagination } from 'antd';
+import AntdRadioGroup from '../../../components/AntdRadioGroup/AntdRadioGroup';
 const { Search } = Input;
-
 
 export default class UserList extends React.Component {
 
@@ -13,11 +13,17 @@ export default class UserList extends React.Component {
       totalPage: 0,//总页数
       tableListLoading:true,//table的loading
       parameter: { //请求参数
-        companyStatus: '',
+        userCompanyStatus: '',
         pageNum: 1,
         pageSize: 20,
         queryKey: ""
       },
+      groupArr: [
+        {value:'',textName:'全部',key:1},
+        {value:'1',textName:'待审核',key:2},
+        {value:'2',textName:'正常',key:3},
+        {value:'3',textName:'已拒绝',key:4},
+      ],
 
       //table标题
       tdataListtitle: [
@@ -97,7 +103,7 @@ export default class UserList extends React.Component {
   }
 
   // 页面初始化
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getPageDatas();
   }
 
@@ -121,25 +127,6 @@ export default class UserList extends React.Component {
       }).catch(function (err) { });
   }
 
-  //setState参数值
-  handleParameter(value, dataName) {
-    let parameter = this.state.parameter
-    parameter[dataName] = value
-    this.setState({
-      parameter: parameter
-    })
-    this.getPageDatas();
-  }
-
-  //修改状态
-  handleStatusChange = e => {
-    this.setState({
-      tableListLoading:true
-    });
-    let value = e.target.value;
-    this.handleParameter(value, 'companyStatus')
-  }
-
   //搜索
   handleSearch(val) {
     this.setState({
@@ -157,18 +144,28 @@ export default class UserList extends React.Component {
     this.handleParameter(e, 'pageNum')
   }
 
-
+  handleStatusChange = e =>{
+    this.setState({
+      tableListLoading:true
+    });
+    this.handleParameter(e, 'userCompanyStatus')
+  }
+  
+   //setState参数值
+   handleParameter(value, dataName) {
+    let parameter = this.state.parameter
+    parameter[dataName] = value
+    this.setState({
+      parameter: parameter
+    })
+    this.getPageDatas();
+  }
+  
   render() {
     return (
       <div className="UserList-page-content">
-        <header className="page-header">
-          <Radio.Group value={this.state.parameter.companyStatus} onChange={this.handleStatusChange}>
-            <Radio.Button value="">全部</Radio.Button>
-            <Radio.Button value="1">待审核</Radio.Button>
-            <Radio.Button value="2">正常</Radio.Button>
-            <Radio.Button value="3">已拒绝</Radio.Button>
-          </Radio.Group>
-
+          <header className="page-header">
+          <AntdRadioGroup value={this.state.parameter.userCompanyStatus} groupArr={this.state.groupArr}  change={this.handleStatusChange}/>
           <Search className="mL20 search" placeholder="请输入企业名称/简称" onSearch={value => this.handleSearch(value)} enterButton />
           <Button className="mL20" icon="download" type="primary">导出</Button>
         </header>

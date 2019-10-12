@@ -1,6 +1,8 @@
 import React from 'react'
-import './index.less'
-import { Radio,Input,Table,Button,Pagination} from 'antd';
+import './CompaniesList.less'
+import {Input,Table,Button,Pagination} from 'antd';
+import AntdRadioGroup from '../../../../src/components/AntdRadioGroup/AntdRadioGroup';
+
 const { Search } = Input;
 
 export default class CompaniesList extends React.Component {
@@ -17,6 +19,12 @@ export default class CompaniesList extends React.Component {
         pageSize: 20,
         queryKey: ""
       },
+      groupArr: [
+        {value:'',textName:'全部',key:1},
+        {value:'1',textName:'待审核',key:2},
+        {value:'2',textName:'已通过',key:3},
+        {value:'3',textName:'已拒绝',key:4},
+        ],
 
       //table标题
        tdataListtitle  : [
@@ -35,7 +43,7 @@ export default class CompaniesList extends React.Component {
   }
 
   // 页面初始化
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getPageDatas();
   }
 
@@ -95,17 +103,17 @@ export default class CompaniesList extends React.Component {
     this.handleParameter(e,'pageNum')
   }
 
+  //修改日期
+  handleTImeChange = e => {
+    this.handleParameter(e,'companyStatus')
+  };
+
+
   render() {
     return (
       <div className="CompaniesList-page-content">
         <header className="page-header">
-          <Radio.Group value={this.state.parameter.companyStatus} onChange={this.handleStatusChange}>
-            <Radio.Button value="">全部</Radio.Button>
-            <Radio.Button value="1">待审核</Radio.Button>
-            <Radio.Button value="2">已通过</Radio.Button>
-            <Radio.Button value="3">已拒绝</Radio.Button>
-          </Radio.Group>
-      
+          <AntdRadioGroup value={this.state.parameter.companyStatus} groupArr={this.state.groupArr}  change={this.handleTImeChange}/>
           <Search  className="mL20 search" placeholder="请输入企业名称/简称" onSearch={value => this.handleSearch(value)} enterButton />
           <Button  className="mL20" icon="plus"  type="primary">添加企业</Button>
           <Button  className="mL20" icon="download" type="primary">导出</Button>

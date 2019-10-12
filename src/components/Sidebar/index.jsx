@@ -26,7 +26,7 @@ class SiderBar extends Component {
   }
 
   // 父组件属性改变时的钩子函数   
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // 二级菜单发生变化时候this.props.hisotory
 
       Array.isArray(childRoutes) &&childRoutes.forEach(item => {

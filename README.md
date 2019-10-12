@@ -42,15 +42,26 @@
 │   ├── api                         // 所有请求
 │   ├── assets                      // 存放图片等静态资源
 │   ├── components                  // 全局公用组件
+│   │   │——AntdRadioGroup           //按钮组组件
+│   │   │——Navpath                  //顶部导航
+│   │   │——Sidebar                  //侧边栏导航
+│   │   │——Nomatch                  //404
 │   ├── mock                        // 项目mock 模拟数据
 │   ├── router                      // 路由
 │   │   ├── asyncComponent          //路由按需加载
 │   │   ├── index                   //路由管理
+│   │   ├── operationRouting        //路由处理、路由前置导航
 │   ├── utils                       // 全局公用方法
 │   ├── views                       // 页面文件
-│   ├── index.css                   // 全局css样式
+│   │   ├── Business                //企业管理
+│   │   │   ├── Application         //申请加入
+│   │   │   ├── CompaniesList       //企业列表
+│   │   │   ├── UserList            //用户列表
+│   │   ├──Home                     //首页
+│   │   ├──Layout                   //layOut
+│   │   ├──Login                    //登录
+│   │   ├──OrderManagement          //订单管理
 │   ├── index.js                    // 入口js 初始化 加载组件等
-│   ├── logo.svg                    // log图标
 │   └── registerServiceWorker.js    // 本地创建service worker 
 ├── .gitignore                      // git 忽略项
 └── package.json                    // package.json
